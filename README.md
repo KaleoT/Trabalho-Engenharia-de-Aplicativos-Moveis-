@@ -1,42 +1,29 @@
-# TÍTULO DO PROJETO
+# TRABALHO DE APLICAÇÕES MÓVEIS
 
-`PPC-CC: PUC Poços de Caldas - Ciência da Computação`
-`Disciplina: NOME DA DISCIPLINA`
-`2021 - Semestre 1`
+`PPC-CC: PUC Poços de Caldas - Ciência da Computação` `Disciplina: Engenharia de Aplicações Móveis` `2026 - Semestre 1`
 
 ## Integrantes
 
-- Jeff Bezos
-- Bill Gates
-- Larry Ellison
-- Mark Zuckerberg
+* KALLED TAUIL OLINTO
 
 ## Professor
 
-- Mestre Yoda
+* Will
 
-# Documentação
+## Documentação
 
-<ol>
-<li><a href="docs/1-Documentação de Contexto.md"> Documentação de Contexto</a></li>
-<li><a href="docs/2-Especificação do Projeto.md"> Especificação do Projeto</a></li>
-<li><a href="docs/3-Projeto de Interface.md"> Projeto de Interface</a></li>
-<li><a href="docs/4-Metodologia.md"> Metodologia</a></li>
-<li><a href="docs/5-Arquitetura da Solução.md"> Arquitetura da Solução</a></li>
-<li><a href="docs/6-Template padrão do Site.md"> Template padrão do Site</a></li>
-<li><a href="docs/7-Programação de Funcionalidades.md"> Programação de Funcionalidades</a></li>
-<li><a href="docs/8-Plano de Testes de Software.md"> Plano de Testes de Software</a></li>
-<li><a href="docs/9-Registro de Testes de Software.md"> Registro de Testes de Software</a></li>
-<li><a href="docs/10-Plano de Testes de Usabilidade.md"> Plano de Testes de Usabilidade</a></li>
-<li><a href="docs/11-Registro de Testes de Usabilidade.md"> Registro de Testes de Usabilidade</a></li>
-<li><a href="docs/12-Apresentação do Projeto.md"> Apresentação do Projeto</a></li>
-<li><a href="docs/13-Referências.md"> Referências</a></li>
-</ol>
+Trabalho 4 - Entrega de Tela contendo 2 ou mais Funcionalidades de CRUD do Projeto da Disciplina (Dupla)
+Implemente uma aplicação que contemple os seguintes requisitos:
 
-# Código
+* tela de autenticação de usuário.
+* tela de cadastro de usuários.
+* tela de perfil de usuário, contendo todas as funcionalidades de CRUD (tela exibida pós autenticação).
+* uma das telas de cadastro referente a tela que você ficou responsável por implementar no projeto da disciplina, contendo todas as funcionalidades de CRUD (tela exibida pós autenticação). Não poderá haver tela repetida já desenvolvida e apresentada por algum colega de grupo.
+* As telas deverão manipular persistência remota no FireBase.
 
-<li><a href="src/README.md"> Código Fonte</a></li>
+## Entregáveis
 
-# Apresentação
+* [Código Fonte](coloque-aqui-o-link-do-seu-repositorio)
+* [Vídeo de Demonstração](coloque-aqui-o-link-do-youtube)
 
-<li><a href="presentation/README.md"> Apresentação da solução</a></li>
+## QR Code do Expo
