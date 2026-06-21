@@ -1,37 +1,47 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { TextInput, Button, Text, Title, PaperProvider, MD3DarkTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 
-// Importando a ferramenta de login e a nossa conexão
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../config/app-firebase';
+// Importando as ferramentas mágicas do Firebase
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../config/app-firebase';
 
-export default function LoginScreen() {
+export default function CadastroScreen() {
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [loading, setLoading] = useState(false); // Controla o carregamento no botão
+  const [loading, setLoading] = useState(false); // Controla o ícone de carregamento
 
-  const fazerLogin = async () => {
-    if (!email || !senha) {
+  const fazerCadastro = async () => {
+    // Validação básica
+    if (!nome || !email || !senha) {
       alert("Por favor, preencha todos os campos!");
       return;
     }
 
     setLoading(true);
-
+    
     try {
-      // Faz a autenticação direto com o Firebase
-      await signInWithEmailAndPassword(auth, email, senha);
-      
-      alert("Login realizado com sucesso!");
-      
-      // router.replace não deixa o usuário voltar para a tela de login pelo botão "voltar" do celular
-      router.replace('/lavagens'); 
+      // 1. Cria a conta de e-mail e senha no Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+      const user = userCredential.user;
+
+      // 2. Salva o Nome e uma foto padrão no banco de dados Firestore
+      await setDoc(doc(db, "usuarios", user.uid), {
+        nome: nome,
+        email: email,
+        foto: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
+        dataCriacao: new Date()
+      });
+
+      alert("Conta criada com sucesso!");
+      router.back(); // Manda o usuário de volta para a tela de Login
 
     } catch (error) {
       console.error(error);
-      alert("Erro ao entrar: Verifique seu e-mail e senha.");
+      alert("Erro ao cadastrar: " + error.message);
     } finally {
       setLoading(false);
     }
@@ -40,8 +50,17 @@ export default function LoginScreen() {
   return (
     <PaperProvider theme={MD3DarkTheme}>
       <View style={styles.container}>
-        <Title style={styles.titulo}>Scan Wash</Title>
-        <Text style={styles.subtitulo}>Faça login para gerenciar suas lavagens</Text>
+        <Title style={styles.titulo}>Criar Conta</Title>
+        <Text style={styles.subtitulo}>Cadastre-se para usar o Scan Wash</Text>
+
+        <TextInput
+          label="Nome Completo"
+          mode="outlined"
+          value={nome}
+          onChangeText={setNome}
+          style={styles.input}
+          textColor="#fff"
+        />
 
         <TextInput
           label="E-mail"
@@ -66,21 +85,22 @@ export default function LoginScreen() {
 
         <Button 
           mode="contained" 
-          onPress={fazerLogin} 
+          onPress={fazerCadastro} 
           style={styles.botao}
           loading={loading}
           disabled={loading}
         >
-          Entrar
+          Cadastrar
         </Button>
 
         <Button 
           mode="text" 
-          onPress={() => router.push('/cadastro')} 
+          onPress={() => router.back()} 
           style={styles.botaoTexto}
+          icon="arrow-left"
           textColor="#2196F3"
         >
-          Não tem uma conta? Cadastre-se
+          Já tenho uma conta. Fazer Login
         </Button>
       </View>
     </PaperProvider>
@@ -92,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#000000', // Fundo preto combinado
+    backgroundColor: '#000000',
   },
   titulo: {
     textAlign: 'center',
