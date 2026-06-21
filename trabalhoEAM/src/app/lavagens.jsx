@@ -6,7 +6,6 @@ import {
 } from 'react-native-paper';
 import { router } from 'expo-router';
 
-// Importando as ferramentas do Firestore e a nossa conexão
 import { 
   collection, addDoc, onSnapshot, query, doc, updateDoc, deleteDoc, orderBy 
 } from 'firebase/firestore';
@@ -17,17 +16,14 @@ export default function LavagensScreen() {
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [editando, setEditando] = useState(false);
-  
-  // Campos do formulário e controle do item atual
+
   const [idAtual, setIdAtual] = useState(null);
   const [maquina, setMaquina] = useState('');
   const [ciclo, setCiclo] = useState('');
 
-  // READ: Buscar as lavagens no Firestore em tempo real
   useEffect(() => {
     const q = query(collection(db, "lavagens"), orderBy("dataCriacao", "desc"));
     
-    // O onSnapshot fica "escutando" o banco. Se mudar algo lá, a tela muda na hora
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const lista = [];
       querySnapshot.forEach((doc) => {
@@ -41,7 +37,7 @@ export default function LavagensScreen() {
       setLoading(false);
     });
 
-    return () => unsubscribe(); // Desliga o leitor ao sair da tela
+    return () => unsubscribe(); 
   }, []);
 
   const abrirNovo = () => {
@@ -60,7 +56,6 @@ export default function LavagensScreen() {
     setModalVisible(true);
   };
 
-  // CREATE & UPDATE: Salvar ou atualizar no Firestore
   const salvarLavagem = async () => {
     if (!maquina || !ciclo) {
       alert("Preencha todos os campos!");
@@ -69,7 +64,7 @@ export default function LavagensScreen() {
 
     try {
       if (editando) {
-        // UPDATE
+
         const docRef = doc(db, "lavagens", idAtual);
         await updateDoc(docRef, {
           maquina: maquina,
@@ -77,7 +72,7 @@ export default function LavagensScreen() {
         });
         alert("Lavagem atualizada!");
       } else {
-        // CREATE
+
         await addDoc(collection(db, "lavagens"), {
           maquina: maquina,
           ciclo: ciclo,
@@ -93,7 +88,6 @@ export default function LavagensScreen() {
     }
   };
 
-  // DELETE: Excluir do Firestore
   const excluirLavagem = (id, nomeMaquina) => {
     Alert.alert(
       "Excluir Lavagem",
@@ -121,7 +115,6 @@ export default function LavagensScreen() {
     <PaperProvider theme={MD3DarkTheme}>
       <View style={styles.container}>
         
-        {/* Cabeçalho */}
         <View style={styles.header}>
           <IconButton icon="logout" iconColor="#FF3B30" onPress={() => router.replace('/')} />
           <Title style={styles.titulo}>Scan Wash</Title>
@@ -130,7 +123,6 @@ export default function LavagensScreen() {
 
         <Text style={styles.subtitulo}>Gerenciamento de Lavagens Activas</Text>
 
-        {/* Lista de Lavagens */}
         {loading ? (
           <ActivityIndicator size="large" color="#2196F3" style={{ marginTop: 50 }} />
         ) : lavagens.length === 0 ? (
@@ -153,7 +145,6 @@ export default function LavagensScreen() {
           </ScrollView>
         )}
 
-        {/* Botão para Adicionar */}
         <Button 
           mode="contained" 
           icon="plus" 
@@ -163,7 +154,6 @@ export default function LavagensScreen() {
           Nova Lavagem
         </Button>
 
-        {/* Modal de Cadastro/Edição */}
         <Portal>
           <Modal 
             visible={modalVisible} 
