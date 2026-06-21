@@ -3,7 +3,6 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { TextInput, Button, Text, Title, PaperProvider, MD3DarkTheme } from 'react-native-paper';
 import { router } from 'expo-router';
 
-// Importando as ferramentas mágicas do Firebase
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../config/app-firebase';
@@ -12,10 +11,9 @@ export default function CadastroScreen() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [loading, setLoading] = useState(false); // Controla o ícone de carregamento
+  const [loading, setLoading] = useState(false); 
 
   const fazerCadastro = async () => {
-    // Validação básica
     if (!nome || !email || !senha) {
       alert("Por favor, preencha todos os campos!");
       return;
@@ -24,11 +22,8 @@ export default function CadastroScreen() {
     setLoading(true);
     
     try {
-      // 1. Cria a conta de e-mail e senha no Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
       const user = userCredential.user;
-
-      // 2. Salva o Nome e uma foto padrão no banco de dados Firestore
       await setDoc(doc(db, "usuarios", user.uid), {
         nome: nome,
         email: email,
@@ -37,7 +32,7 @@ export default function CadastroScreen() {
       });
 
       alert("Conta criada com sucesso!");
-      router.back(); // Manda o usuário de volta para a tela de Login
+      router.back(); 
 
     } catch (error) {
       console.error(error);
