@@ -24,7 +24,7 @@ Implemente uma aplicação que contemple os seguintes requisitos:
 ## Entregáveis
 
 * [Código Fonte](trabalhoEAM)
-* [Vídeo de Demonstração]([coloque-aqui-o-link-do-youtube](https://youtu.be/LgqkFZqcj-g))
+* [Vídeo de Demonstração](https://youtu.be/LgqkFZqcj-g)
 
 ## QR Code do Expo
 <img width="217" height="245" alt="image" src="https://github.com/user-attachments/assets/0beaa333-5d8c-419e-a242-86cfa21bcf29" />
