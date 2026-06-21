@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Text, Title, PaperProvider, MD3DarkTheme } from 'react-native-paper';
 import { router } from 'expo-router';
-
-// Importando a ferramenta de login e a nossa conexão
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/app-firebase';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [loading, setLoading] = useState(false); // Controla o carregamento no botão
+  const [loading, setLoading] = useState(false); 
 
   const fazerLogin = async () => {
     if (!email || !senha) {
@@ -21,12 +19,11 @@ export default function LoginScreen() {
     setLoading(true);
 
     try {
-      // Faz a autenticação direto com o Firebase
       await signInWithEmailAndPassword(auth, email, senha);
       
       alert("Login realizado com sucesso!");
       
-      // router.replace não deixa o usuário voltar para a tela de login pelo botão "voltar" do celular
+    
       router.replace('/lavagens'); 
 
     } catch (error) {
@@ -92,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#000000', // Fundo preto combinado
+    backgroundColor: '#000000', 
   },
   titulo: {
     textAlign: 'center',
