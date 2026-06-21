@@ -23,7 +23,7 @@ Implemente uma aplicação que contemple os seguintes requisitos:
 
 ## Entregáveis
 
-* [Código Fonte](coloque-aqui-o-link-do-seu-repositorio)
+* [Código Fonte](trabalhoEAM)
 * [Vídeo de Demonstração](coloque-aqui-o-link-do-youtube)
 
 ## QR Code do Expo
